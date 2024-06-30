@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using System;
 using System.Diagnostics;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Xunit;
 
 namespace McMotdParser.Test.Deserializer
@@ -95,6 +96,19 @@ namespace McMotdParser.Test.Deserializer
             contents.Contents = except;
             
             Assert.Equal(except,testResult);
+        }
+
+        [Fact]
+        public void RegexTest() {
+            string raw_motd = "                §aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
+            raw_motd = raw_motd.Trim();
+            Regex regex = new Regex("(§(0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|k|l|m|n|o|r)){1,2}([^§]*)");
+            
+            var matches = regex.Matches(raw_motd);
+
+            
+            Debug.WriteLine(matches);
+            Assert.Equal(true,true);
         }
     }
 }

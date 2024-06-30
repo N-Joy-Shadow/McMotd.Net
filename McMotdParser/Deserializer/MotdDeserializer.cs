@@ -9,11 +9,18 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using McMotdParser.Options;
 
 namespace McMotdParser.Deserializer
 {
     internal class MotdDeserializer : JsonConverter<List<MotdContent>>
     {
+        private MotdOption _option;
+        public MotdDeserializer(MotdOption option)
+        {
+            this._option = option;
+        }
+        public MotdDeserializer() : this(new MotdOption()) {}
         private bool nextLineBreak = false;
         public override List<MotdContent>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

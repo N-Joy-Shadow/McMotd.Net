@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using McMotdParser.Data;
 using McMotdParser.Deserializer;
 using McMotdParser.Enum;
+using McMotdParser.Options;
 using McMotdParser.Utils;
 
 namespace McMotdParser
@@ -72,7 +73,13 @@ namespace McMotdParser
             
             
             var option = new JsonSerializerOptions();
-            option.Converters.Add(new MotdDeserializer());
+
+            var motdOption = new MotdOptionBuilder()
+                .Stripped()
+                .NoLineBreak()
+                .build();
+            
+            option.Converters.Add(new MotdDeserializer(motdOption));
             return JsonSerializer.Deserialize<MotdContents>(RawMotd,option).Contents;
         }
         

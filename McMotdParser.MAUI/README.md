@@ -1,7 +1,7 @@
 # McMotd.Net.MAUI
 
 
-McMotd.Net.MAUI can use Maui Component
+McMotd.Net.Razor can use McMotd.Net as MAUI Component
 ## how to use?
 ### setup  
 import McMotdParser.MAUI

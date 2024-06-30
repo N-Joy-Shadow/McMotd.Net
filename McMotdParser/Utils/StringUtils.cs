@@ -32,13 +32,10 @@ public class StringUtils
     /// <returns>"some string §x§zstring"</returns>
     public static string EscapeCharacterReplace(string motd)
     {
-
             motd = motd.Replace("\\r", "\r").Replace("\\n", "\n");
             return motd.Replace("\r", "§x").Replace("\n", "§z");
-       
-        
     }
-    public static string QuotesREMOVE(string motd)
+    public static string QuotesRemove(string motd)
     {
         if (motd.StartsWith(@""""))
         {
