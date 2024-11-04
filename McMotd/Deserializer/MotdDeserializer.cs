@@ -9,12 +9,49 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using McMotd.Options;
+using McMotd.API;
+using McMotd.Model;
 
 namespace McMotd.Deserializer
 {
-    public class MotdDeserializer : JsonConverter<List<MotdContent>>
+    public class MotdDeserializer: IMotdDeserializer
     {
+        private IMotdDeserializer sectionSignDeserializer;
+        private IMotdDeserializer jsonDeserializer;
+        private IMotdDeserializer textDeserializer;
+        public MotdDeserializer(HashSet<MotdParsingOption> options)
+        {
+            this.sectionSignDeserializer = new SectionSignDeserializer(options);
+            this.jsonDeserializer = new MotdJsonDeserializer(options);
+            this.textDeserializer = new PlainTextDeserializer(options);
+        }
+
+        public MotdComponents Deserialize(string RawMotd) {
+            if (this.IsJson(RawMotd)) 
+                return jsonDeserializer.Deserialize(RawMotd);
+            else 
+                if (this.ContainSectionSign(RawMotd)) 
+                    return sectionSignDeserializer.Deserialize(RawMotd);
+                else 
+                    return textDeserializer.Deserialize(RawMotd);
+        }
+
+        #region private section
+        private bool ContainSectionSign(string Rawmotd) {
+            return Rawmotd.Contains("§");
+        }
+        private bool IsJson(string RawMotd) {
+            //TODO:  나중에 확인 한번 하기
+            RawMotd = RawMotd.Trim(); //기억이 안남 나중에 확인 바람
+            return (RawMotd.StartsWith("{") && RawMotd.EndsWith("}")) || 
+                   (RawMotd.StartsWith("[") && RawMotd.EndsWith("]"));
+        }
+        #endregion
+        
+        #region previous code
+        /*
+        
+
         private MotdOption _option;
         public MotdDeserializer(MotdOption option)
         {
@@ -98,5 +135,7 @@ namespace McMotd.Deserializer
                     break;
             }
         }
+        */
+        #endregion
     }
 }

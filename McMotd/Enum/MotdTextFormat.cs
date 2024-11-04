@@ -1,6 +1,6 @@
 ﻿namespace McMotd.Enum;
 
-public enum TextFormatEnum
+public enum MotdTextFormat
 {
     Bold,
     Italic,

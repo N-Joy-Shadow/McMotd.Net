@@ -12,12 +12,11 @@ public class RegexTest {
     [Fact]
     public void Regextest() {
         string motd  = "                §aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
-
-        var option = new MotdOptionBuilder().build();
+        
         
         var a = new MotdParser().parse(motd,option);
 
-        foreach (var b in a) {
+        foreach (var b in a.Components) {
             Debug.WriteLine(b.Text);
         }
         

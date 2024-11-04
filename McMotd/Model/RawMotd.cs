@@ -23,10 +23,10 @@ public class Extra
         };
         
         if (this.Bold.HasValue && this.Bold.Value) {
-            motdComponent.TextFormatting.Add(TextFormatEnum.Bold);
+            motdComponent.TextFormatting.Add(MotdTextFormat.Bold);
         }
         if (this.Italic.HasValue && this.Italic.Value) {
-            motdComponent.TextFormatting.Add(TextFormatEnum.Italic);
+            motdComponent.TextFormatting.Add(MotdTextFormat.Italic);
         }
 
         return motdComponent;

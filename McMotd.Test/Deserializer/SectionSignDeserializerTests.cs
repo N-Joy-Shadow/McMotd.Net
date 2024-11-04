@@ -21,9 +21,9 @@ namespace McMotd.Test.Deserializer
                 new MotdContent { Color = "#808080", Text = "               " },
                 new MotdContent { Color = "#55FF55", Text = "Hypixel Network " },
                 new MotdContent { Color = "#FF5555", Text = "[1.8-1.20]        " },
-                new MotdContent { Color = "#55FFFF", Text = "DROPPER v1.0 ", TextFormatting = new HashSet<TextFormatEnum> { TextFormatEnum.Bold }},
+                new MotdContent { Color = "#55FFFF", Text = "DROPPER v1.0 ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }},
                 new MotdContent { Color = "#AAAAAA", Text = "- " },
-                new MotdContent { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<TextFormatEnum> { TextFormatEnum.Bold }}
+                new MotdContent { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }}
             };
             // Assert
             Assert.True(contents.SequenceEqual(expect));
@@ -40,9 +40,9 @@ namespace McMotd.Test.Deserializer
             {
                 new MotdContent { Color = "#55FF55", Text = "Hypixel Network " },
                 new MotdContent { Color = "#FF5555", Text = "[1.8-1.20]        " },
-                new MotdContent { Color = "#55FFFF", Text = "DROPPER v1.0 ", TextFormatting = new HashSet<TextFormatEnum> { TextFormatEnum.Bold }},
+                new MotdContent { Color = "#55FFFF", Text = "DROPPER v1.0 ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }},
                 new MotdContent { Color = "#AAAAAA", Text = "- " },
-                new MotdContent { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<TextFormatEnum> { TextFormatEnum.Bold }}
+                new MotdContent { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }}
             };
             // Assert
             Assert.True(contents.SequenceEqual(expect));
@@ -59,9 +59,9 @@ namespace McMotd.Test.Deserializer
             {
                 new MotdContent { Color = "#55FF55", Text = "Hypixel Network " },
                 new MotdContent { Color = "#FF5555", Text = "[1.8-1.20]"},
-                new MotdContent { Color = "#55FFFF", Text = "        DROPPER v1.0 ", TextFormatting = new HashSet<TextFormatEnum> { TextFormatEnum.Bold }},
+                new MotdContent { Color = "#55FFFF", Text = "        DROPPER v1.0 ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }},
                 new MotdContent { Color = "#AAAAAA", Text = "- " },
-                new MotdContent { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<TextFormatEnum> { TextFormatEnum.Bold }}
+                new MotdContent { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }}
             };
             // Assert
             Assert.True(contents.SequenceEqual(expect));

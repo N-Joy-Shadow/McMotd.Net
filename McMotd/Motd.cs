@@ -3,66 +3,58 @@ using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using McMotd.Data;
 using McMotd.Model;
-using McMotd.Options;
+using McMotd.Enum;
 using McMotd.Utils;
 
 namespace McMotd;
 
 public class Motd {
-    public string motd { get; set; }
-    public MotdOption option { get; set; }
-    public MotdComponents components { get; set; }
+    public string RawMotd { get; }
+    public HashSet<MotdParsingOption> Options { get; set; }
+    private MotdComponents components { get; set; }
     
-    public Motd(string motd) : this(motd, new MotdOption()) { }
-    public Motd(string motd, MotdOption option) {
-        this.motd = motd;
-        this.option = option;
+    public Motd(string motd) {
+        this.RawMotd = motd;
     }
-    
     public static implicit operator Motd(string motd) {
-        if (motd is null)
-            throw new Exception("motd is null");
         return new (motd);
     }
-    
-    private List<MotdComponent> parseMotd() {
-        if (this.IsJson()) {
-            var components = JsonSerializer.Deserialize<RawMotd>(this.rawMotd).ToMotdComponents();
-            return components;
-        }
-        else {
-            if(this.ContainSectionSign())
-                return new SectionSignParser().parse(this);
-            else {
-                return new List<MotdComponent> { new MotdComponent { Text = this.motd } };
-            }
-        }
+    #region Override Function Section
+    public override string ToString() {
+        return this.RawMotd;
     }
+    #endregion
+    //여기 부분을 딴 코드로 이동
     #region Private Section
     private MotdComponents ParseMotd() {
         if (this.IsJson()) {
-            var aa =  JsonSerializer.Deserialize<Queue<Model.MotdComponent>>(this.motd);
+            var aa = JsonSerializer.Deserialize<List<Model.MotdComponent>>(this.RawMotd);
             return new MotdComponents() {
                 Components = aa
             };
         }
         else {
             if (this.ContainSectionSign()) {
-                return "";
+                //뭔가 별론데
+                return new SectionSignParser().parse(this);
             }
             else {
-                return "";
+                return new MotdComponents() {
+                    Components = new List<MotdComponent>(new Model.MotdComponent[] {
+                        new Model.MotdComponent() {
+                            Text = this.RawMotd
+                        }
+                    })
+                };
             }
         }
     }
-    
-    
     private bool ContainSectionSign() {
-        return this.motd.Contains("§");
+        return this.RawMotd.Contains("§");
     }
     private bool IsJson()
     {
-        string input = this.motd;
+        string input = this.RawMotd;
         input = input.Trim();
         return (input.StartsWith("{") && input.EndsWith("}")) || 
                (input.StartsWith("[") && input.EndsWith("]"));

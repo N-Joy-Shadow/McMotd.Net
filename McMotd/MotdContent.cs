@@ -7,7 +7,7 @@ public class MotdContent
 {
     public string Color { get; set; } = "#808080";
     public string Text { get; set; }
-    public HashSet<TextFormatEnum> TextFormatting { get; set; } = new ();
+    public HashSet<MotdTextFormat> TextFormatting { get; set; } = new ();
     public bool LineBreak { get; set; } = false;
     
 }

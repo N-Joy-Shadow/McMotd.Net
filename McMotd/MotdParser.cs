@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using McMotd.Data;
 using McMotd.Deserializer;
 using McMotd.Enum;
-using McMotd.Options;
+using McMotd.Model;
 using McMotd.Utils;
 
 namespace McMotd;
@@ -32,21 +32,21 @@ public class MotdParser {
         return sb.ToString();
     }
 
-    private string HtmlStyle(HashSet<TextFormatEnum> TextFormats) {
+    private string HtmlStyle(HashSet<MotdTextFormat> TextFormats) {
         StringBuilder sb = new StringBuilder();
         foreach (var TextFormat in TextFormats) {
             sb.Append(" ");
             switch (TextFormat) {
-                case TextFormatEnum.Bold:
+                case MotdTextFormat.Bold:
                     sb.Append("font-weight : bolder;");
                     break;
-                case TextFormatEnum.Italic:
+                case MotdTextFormat.Italic:
                     sb.Append("font-style : italic;");
                     break;
-                case TextFormatEnum.Underline:
+                case MotdTextFormat.Underline:
                     sb.Append("text-decoration : underline;");
                     break;
-                case TextFormatEnum.Striktethrough:
+                case MotdTextFormat.Striktethrough:
                     sb.Append("text-decoration : line-through;");
                     break;
                 default:
@@ -68,10 +68,9 @@ public class MotdParser {
 
         var option = new JsonSerializerOptions();
 
-        var motdOption = new MotdOptionBuilder()
-            .Stripped()
-            .NoLineBreak()
-            .build();
+        var motdOption = new HashSet<MotdParsingOption>();
+        motdOption.Add(MotdParsingOption.Trim);
+        motdOption.Add(MotdParsingOption.NoLineBreak);
 
         option.Converters.Add(new MotdDeserializer(motdOption));
         return JsonSerializer.Deserialize<MotdContents>(RawMotd, option).Contents;
@@ -79,7 +78,7 @@ public class MotdParser {
 
     
     private string LineBreakSign = "§z";
-    public List<MotdComponent> parse(string motd, MotdOption option) {
+    public MotdComponents parse(string motd, HashSet<MotdParsingOption> option) {
         optionSetup(option);
         
         motd  = McRegex.stripPattern.Replace(motd,LineBreakSign);
@@ -110,11 +109,11 @@ public class MotdParser {
             contents.Add(content);
         }
 
-        return contents;
+        return new MotdComponents();
     }
 
-    public void optionSetup(MotdOption option) {
-        LineBreakSign = option.LineBreak ? "§z" : string.Empty;
+    public void optionSetup(HashSet<MotdParsingOption> option) {
+        LineBreakSign = option.Contains(MotdParsingOption.NoLineBreak) ? "§z" : string.Empty;
     }
     
     
