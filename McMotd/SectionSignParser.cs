@@ -11,7 +11,7 @@ public class SectionSignParser {
     public List<MotdComponent> parse(Motd motd) {
         optionSetup(motd.option);
 
-        var formattedMotd = optionPreTask(motd.rawMotd, motd.option);
+        var formattedMotd = optionPreTask(motd.motd, motd.option);
         List<MotdComponent> contents = new();
 
         if (!motd.option.Stripped) {

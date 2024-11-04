@@ -9,42 +9,63 @@ using McMotd.Utils;
 namespace McMotd;
 
 public class Motd {
-    public string rawMotd { get; set; }
-    
+    public string motd { get; set; }
     public MotdOption option { get; set; }
-    public Motd(string motd) : this(motd, new MotdOption()) {
-    }
-
+    public MotdComponents components { get; set; }
+    
+    public Motd(string motd) : this(motd, new MotdOption()) { }
     public Motd(string motd, MotdOption option) {
-        this.rawMotd = motd;
+        this.motd = motd;
         this.option = option;
     }
     
     public static implicit operator Motd(string motd) {
         if (motd is null)
             throw new Exception("motd is null");
-
-        return new Motd(motd);
+        return new (motd);
     }
-
-    public string ToString() {
-        var a = parseMotd();
-        return a.First().Text;
-    }
-    
-    
     
     private List<MotdComponent> parseMotd() {
-        if (this.isJson()) {
+        if (this.IsJson()) {
             var components = JsonSerializer.Deserialize<RawMotd>(this.rawMotd).ToMotdComponents();
             return components;
         }
         else {
-            return new SectionSignParser().parse(this);
+            if(this.ContainSectionSign())
+                return new SectionSignParser().parse(this);
+            else {
+                return new List<MotdComponent> { new MotdComponent { Text = this.motd } };
+            }
         }
     }
-
-    private bool isJson() {
-        return (rawMotd.StartsWith("{") || rawMotd.EndsWith("}"));
+    #region Private Section
+    private MotdComponents ParseMotd() {
+        if (this.IsJson()) {
+            var aa =  JsonSerializer.Deserialize<Queue<Model.MotdComponent>>(this.motd);
+            return new MotdComponents() {
+                Components = aa
+            };
+        }
+        else {
+            if (this.ContainSectionSign()) {
+                return "";
+            }
+            else {
+                return "";
+            }
+        }
     }
+    
+    
+    private bool ContainSectionSign() {
+        return this.motd.Contains("§");
+    }
+    private bool IsJson()
+    {
+        string input = this.motd;
+        input = input.Trim();
+        return (input.StartsWith("{") && input.EndsWith("}")) || 
+               (input.StartsWith("[") && input.EndsWith("]"));
+    }
+    #endregion
 }

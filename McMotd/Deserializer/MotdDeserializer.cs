@@ -13,7 +13,7 @@ using McMotd.Options;
 
 namespace McMotd.Deserializer
 {
-    internal class MotdDeserializer : JsonConverter<List<MotdContent>>
+    public class MotdDeserializer : JsonConverter<List<MotdContent>>
     {
         private MotdOption _option;
         public MotdDeserializer(MotdOption option)
@@ -98,6 +98,5 @@ namespace McMotd.Deserializer
                     break;
             }
         }
-
     }
 }
