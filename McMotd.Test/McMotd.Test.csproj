@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -27,6 +27,10 @@
     <ProjectReference Include="..\McMotd.MAUI\McMotd.MAUI.csproj" />
     <ProjectReference Include="..\McMotd.Razor\McMotd.Razor.csproj" />
     <ProjectReference Include="..\McMotd\McMotd.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestFiles\" />
   </ItemGroup>
 
 </Project>
