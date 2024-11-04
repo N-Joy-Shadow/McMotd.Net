@@ -1,13 +1,17 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using McMotd.Data;
+using McMotd.Model;
 using McMotd.Options;
 using McMotd.Utils;
 
 namespace McMotd;
 
 public class Motd {
-    private string rawMotd;
-    private MotdOption option;
+    public string rawMotd { get; set; }
+    
+    public MotdOption option { get; set; }
     public Motd(string motd) : this(motd, new MotdOption()) {
     }
 
@@ -23,19 +27,20 @@ public class Motd {
         return new Motd(motd);
     }
 
-    public string ToJson() {
-        return "";
-    }
     public string ToString() {
-        return "";
+        var a = parseMotd();
+        return a.First().Text;
     }
     
-    private void parseMotd() {
+    
+    
+    private List<MotdComponent> parseMotd() {
         if (this.isJson()) {
+            var components = JsonSerializer.Deserialize<RawMotd>(this.rawMotd).ToMotdComponents();
+            return components;
         }
         else {
-            Regex regex = McRegex.pattern;
-            var matches = regex.Matches(rawMotd);
+            return new SectionSignParser().parse(this);
         }
     }
 
