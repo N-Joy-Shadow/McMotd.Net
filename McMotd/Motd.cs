@@ -10,9 +10,11 @@ using McMotd.Utils;
 namespace McMotd;
 
 public class Motd {
+    private MotdComponents _components;
     public string RawMotd { get; }
     public MotdOption Option { get; set; }
-    private MotdComponents components { get; set; }
+    //wanna set private 
+    public MotdComponents components { get; set; }
     
     public Motd(string motd) {
         this.RawMotd = motd;

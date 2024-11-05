@@ -2,6 +2,7 @@
 using McMotd.Enum;
 using System;
 using System.Diagnostics;
+using McMotd.Model;
 using Xunit;
 
 namespace McMotd.Test.Deserializer
@@ -12,56 +13,51 @@ namespace McMotd.Test.Deserializer
         public void SectionDeserializer()
         {
             // Arrange
-            var sectionSignDeserializer = new SectionSignDeserializer(@"                §aHypixel Network §c[1.8-1.20]        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY");
-
+            Motd motd=  @"                §aHypixel Network §c[1.8-1.20]        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
             // Act
-            List<MotdContent> contents = sectionSignDeserializer.deserialize();
-            List<MotdContent> expect = new List<MotdContent>()
+            var contents = motd.components.Components;
+            var expect = new List<MotdComponent>()
             {
-                new MotdContent { Color = "#808080", Text = "               " },
-                new MotdContent { Color = "#55FF55", Text = "Hypixel Network " },
-                new MotdContent { Color = "#FF5555", Text = "[1.8-1.20]        " },
-                new MotdContent { Color = "#55FFFF", Text = "DROPPER v1.0 ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }},
-                new MotdContent { Color = "#AAAAAA", Text = "- " },
-                new MotdContent { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }}
+                new() { Color = "#808080", Text = "               " },
+                new() { Color = "#55FF55", Text = "Hypixel Network " },
+                new() { Color = "#FF5555", Text = "[1.8-1.20]        " },
+                new() { Color = "#55FFFF", Text = "DROPPER v1.0 ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }},
+                new() { Color = "#AAAAAA", Text = "- " },
+                new() { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }}
             };
             // Assert
             Assert.True(contents.SequenceEqual(expect));
         }
         [Fact]
-        public void SectionDeserializerStartWithSign()
-        {
-            var sectionSignDeserializer = new SectionSignDeserializer(@"§aHypixel Network §c[1.8-1.20]        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY");
-
+        public void SectionDeserializerStartWithSign() {
+            Motd motd = @"§aHypixel Network §c[1.8-1.20]        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
             // Act
-            List<MotdContent> contents = sectionSignDeserializer.deserialize();
-
-            List<MotdContent> expect = new List<MotdContent>()
+            var contents = motd.components.Components;
+            var expect = new List<MotdComponent>()
             {
-                new MotdContent { Color = "#55FF55", Text = "Hypixel Network " },
-                new MotdContent { Color = "#FF5555", Text = "[1.8-1.20]        " },
-                new MotdContent { Color = "#55FFFF", Text = "DROPPER v1.0 ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }},
-                new MotdContent { Color = "#AAAAAA", Text = "- " },
-                new MotdContent { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }}
+                new() { Color = "#55FF55", Text = "Hypixel Network " },
+                new() { Color = "#FF5555", Text = "[1.8-1.20]        " },
+                new() { Color = "#55FFFF", Text = "DROPPER v1.0 ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }},
+                new() { Color = "#AAAAAA", Text = "- " },
+                new() { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }}
             };
             // Assert
             Assert.True(contents.SequenceEqual(expect));
         }        
         [Fact]
-        public void SectionDeserializerStartWithSignAndWithEscapeCharacter()
-        {
-            var sectionSignDeserializer = new SectionSignDeserializer(@"§aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY");
+        public void SectionDeserializerStartWithSignAndWithEscapeCharacter() {
+            Motd motd = @"§aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
 
             // Act
-            List<MotdContent> contents = sectionSignDeserializer.deserialize();
 
-            List<MotdContent> expect = new List<MotdContent>()
+            var contents = motd.components.Components;
+            var expect = new List<MotdComponent>()
             {
-                new MotdContent { Color = "#55FF55", Text = "Hypixel Network " },
-                new MotdContent { Color = "#FF5555", Text = "[1.8-1.20]"},
-                new MotdContent { Color = "#55FFFF", Text = "        DROPPER v1.0 ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }},
-                new MotdContent { Color = "#AAAAAA", Text = "- " },
-                new MotdContent { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }}
+                new() { Color = "#55FF55", Text = "Hypixel Network " },
+                new() { Color = "#FF5555", Text = "[1.8-1.20]"},
+                new() { Color = "#55FFFF", Text = "        DROPPER v1.0 ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }},
+                new() { Color = "#AAAAAA", Text = "- " },
+                new() { Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }}
             };
             // Assert
             Assert.True(contents.SequenceEqual(expect));
