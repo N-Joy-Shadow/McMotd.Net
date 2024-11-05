@@ -1,12 +1,6 @@
-﻿using McMotd.Deserializer;
-using McMotd.Enum;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using System;
 using System.Diagnostics;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-using McMotd.Model;
-using Xunit;
 
 namespace McMotd.Test.Deserializer
 {

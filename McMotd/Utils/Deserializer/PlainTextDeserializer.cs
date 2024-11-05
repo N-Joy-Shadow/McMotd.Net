@@ -3,7 +3,7 @@ using McMotd.API;
 using McMotd.Enum;
 using McMotd.Model;
 
-namespace McMotd.Deserializer;
+namespace McMotd.Utils.Deserializer;
 
 public class PlainTextDeserializer: IMotdDeserializer {
     private MotdOption _option;

@@ -2,11 +2,11 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using McMotd.Data;
-using McMotd.Deserializer;
 using McMotd.Model;
 using McMotd.Enum;
 using McMotd.Utils;
 using McMotd.Utils.Serializer;
+using McMotd.Utils.Deserializer;
 
 namespace McMotd;
 

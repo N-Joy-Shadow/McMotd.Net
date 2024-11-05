@@ -1,9 +1,5 @@
-﻿using McMotd.Deserializer;
-using McMotd.Enum;
-using System;
+﻿using System;
 using System.Diagnostics;
-using McMotd.Model;
-using Xunit;
 
 namespace McMotd.Test.Deserializer
 {

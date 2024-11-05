@@ -10,7 +10,7 @@ using McMotd.API;
 using McMotd.Model;
 using McMotd.Utils;
 using McMotd.Extension;
-namespace McMotd.Deserializer;
+namespace McMotd.Utils.Deserializer;
 
 public class SectionSignDeserializer : IMotdDeserializer {
     private readonly string SIGN = "§";

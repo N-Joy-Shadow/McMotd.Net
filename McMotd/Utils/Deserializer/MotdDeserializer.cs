@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using McMotd.API;
 using McMotd.Model;
 
-namespace McMotd.Deserializer
+namespace McMotd.Utils.Deserializer
 {
     public class MotdDeserializer: IMotdDeserializer
     {

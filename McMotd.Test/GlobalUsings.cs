@@ -1,2 +1,11 @@
+global using System;
 global using Xunit;
-global using McMotdParser;
+global using McMotd;
+global using McMotd.API;
+global using McMotd.Exceptions;
+global using McMotd.Data;
+global using McMotd.Enum;
+global using McMotd.Model;
+global using McMotd.Utils;
+global using McMotd.Utils.Deserializer;
+global using McMotd.Utils.Serializer;

@@ -5,7 +5,7 @@ using McMotd.Enum;
 using McMotd.Extension;
 using McMotd.Model;
 
-namespace McMotd.Deserializer;
+namespace McMotd.Utils.Deserializer;
 
 public class MotdJsonDeserializer: IMotdDeserializer {
     private MotdOption _option;
