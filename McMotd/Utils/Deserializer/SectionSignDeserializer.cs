@@ -28,6 +28,12 @@ public class SectionSignDeserializer : IMotdDeserializer {
         //전 처리 끝
         MotdComponents motd = new();
 
+        if (!rawMotd.StartsWith(SIGN))
+            motd.Components.Add(new() {
+                Text = rawMotd.Split(SIGN)[0]
+            });
+        
+        
         var matches = McRegex.pattern.Matches(rawMotd);
         foreach (Match match in matches) {
             MotdComponent component = new();

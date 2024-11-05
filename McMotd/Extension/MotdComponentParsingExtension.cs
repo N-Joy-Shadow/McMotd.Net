@@ -7,7 +7,7 @@ namespace McMotd.Extension;
 
 public static class MotdComponentParsingExtension {
     public static void ParseSectionSign(this MotdComponent component, string? sectionSign) {
-        if (sectionSign is null)
+        if (string.IsNullOrEmpty(sectionSign))
             return;
         
         switch (sectionSign) {
