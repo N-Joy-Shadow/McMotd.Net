@@ -1,3 +1,4 @@
+using System.Text.Json;
 using McMotd.API;
 using McMotd.Enum;
 using McMotd.Model;
@@ -5,11 +6,20 @@ using McMotd.Model;
 namespace McMotd.Deserializer;
 
 public class PlainTextDeserializer: IMotdDeserializer {
-    public PlainTextDeserializer(HashSet<MotdParsingOption> options) {
-        
+    private MotdOption _option;
+    public PlainTextDeserializer(MotdOption option) {
+        this._option = option;
     }
     public MotdComponents Deserialize(string RawMotd) {
-        throw new NotImplementedException();
+        var motd = new MotdComponents();
+        motd.Components.Add(new() {
+            Text = RawMotd,
+            Color = "#808080",
+            TextFormatting = new(),
+            LineBreak = false
+        });
+        return motd;
     }
     
 }
+

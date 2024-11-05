@@ -9,14 +9,14 @@ namespace McMotd.Data
 {
     public partial class MotdData
     {
-        public static Dictionary<string,TextFormatEnum> TextFormatDict = new Dictionary<string, TextFormatEnum>() {
-            {"k" ,  TextFormatEnum.Obfuscated },
-            {"l" ,  TextFormatEnum.Bold },
-            {"m" ,TextFormatEnum.Striktethrough },
-            {"n" ,  TextFormatEnum.Underline },
-            {"o" ,  TextFormatEnum.Italic },
-            {"r" ,  TextFormatEnum.Reset },
-            {"x" , TextFormatEnum.Noraml}
+        public static Dictionary<string,MotdTextFormat> TextFormatDict = new () {
+            {"k" ,  MotdTextFormat.Obfuscated },
+            {"l" ,  MotdTextFormat.Bold },
+            {"m" ,MotdTextFormat.Striktethrough },
+            {"n" ,  MotdTextFormat.Underline },
+            {"o" ,  MotdTextFormat.Italic },
+            {"r" ,  MotdTextFormat.Reset },
+            {"x" , MotdTextFormat.Noraml}
         };
     }
 }

@@ -24,7 +24,6 @@
     <None Include="../LICENSE.txt" Pack="true" PackagePath="\"/>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extension\" />
     <Folder Include="Options\" />
   </ItemGroup>
 </Project>

@@ -2,12 +2,12 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using McMotd.Data;
 using McMotd.Model;
-using McMotd.Options;
 using McMotd.Utils;
 
 namespace McMotd;
 
 public class SectionSignParser {
+    /*
     private string LineBreakSign = "§z";
     public MotdComponents parse(Motd motd) {
         optionSetup(motd.option);
@@ -15,6 +15,7 @@ public class SectionSignParser {
         var formattedMotd = optionPreTask(motd.motd, motd.option);
         MotdComponents components = new();
 
+        //이게 무슨 코드였더라
         if (!motd.option.Stripped) {
             var firstGroup = McRegex.leadingWhitespacePattern.Match(formattedMotd).Groups;
             if (firstGroup.Count > 0) 
@@ -35,10 +36,8 @@ public class SectionSignParser {
             
             if(!string.IsNullOrEmpty(secondSectionCode))
                 codeParser(secondSectionCode, ref content);
-
             components.Components.Add(content);
         }
-
         return components;
     }
 
@@ -77,4 +76,5 @@ public class SectionSignParser {
             Debug.WriteLine(E);
         }
     }
+    */
 }

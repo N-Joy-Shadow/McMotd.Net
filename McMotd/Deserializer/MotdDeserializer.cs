@@ -19,11 +19,11 @@ namespace McMotd.Deserializer
         private IMotdDeserializer sectionSignDeserializer;
         private IMotdDeserializer jsonDeserializer;
         private IMotdDeserializer textDeserializer;
-        public MotdDeserializer(HashSet<MotdParsingOption> options)
+        public MotdDeserializer(MotdOption option)
         {
-            this.sectionSignDeserializer = new SectionSignDeserializer(options);
-            this.jsonDeserializer = new MotdJsonDeserializer(options);
-            this.textDeserializer = new PlainTextDeserializer(options);
+            this.sectionSignDeserializer = new SectionSignDeserializer(option);
+            this.jsonDeserializer = new MotdJsonDeserializer(option);
+            this.textDeserializer = new PlainTextDeserializer(option);
         }
 
         public MotdComponents Deserialize(string RawMotd) {
