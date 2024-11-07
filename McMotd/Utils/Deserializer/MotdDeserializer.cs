@@ -16,14 +16,15 @@ namespace McMotd.Utils.Deserializer
 {
     public class MotdDeserializer: IMotdDeserializer
     {
-        private IMotdDeserializer sectionSignDeserializer;
-        private IMotdDeserializer jsonDeserializer;
-        private IMotdDeserializer textDeserializer;
+        private readonly IMotdDeserializer sectionSignDeserializer;
+        private readonly IMotdDeserializer jsonDeserializer;
+        private readonly IMotdDeserializer textDeserializer;
         public MotdDeserializer(MotdOption option)
         {
             this.sectionSignDeserializer = new SectionSignDeserializer(option);
             this.jsonDeserializer = new MotdJsonDeserializer(option);
             this.textDeserializer = new PlainTextDeserializer(option);
+            
         }
 
         public MotdComponents Deserialize(string RawMotd) {

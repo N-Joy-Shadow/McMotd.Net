@@ -7,7 +7,7 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <RootNamespace>McMotdParser.Test</RootNamespace>
+    <RootNamespace>McMotd.Test</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

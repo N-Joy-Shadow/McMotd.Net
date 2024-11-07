@@ -10,12 +10,11 @@ public class RegexTest {
     
     [Fact]
     public void Regextest() {
-        Motd motd  = "                §aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
-
-        foreach (var component in motd.components.Components) {
-            Debug.WriteLine(component.Text);
-        }
-        
+        string motd  = "                §aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
+        Regex lineBreakPattern = new Regex(@"(\r)?(\n)");
+        var a = lineBreakPattern.Matches(motd);
+    
+        Debug.WriteLine(a);
         Assert.Equal(true,true);
     }
 }

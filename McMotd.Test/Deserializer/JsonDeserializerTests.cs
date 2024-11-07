@@ -2,82 +2,123 @@
 using System;
 using System.Diagnostics;
 
-namespace McMotd.Test.Deserializer
-{
-    public class JsonDeserializerTests {
-        [Fact]
-        public void VerySimpleJsonMotdDeserialize() {
-            Motd motd = @"{""text"":""기모찌서버""}";
+namespace McMotd.Test.Deserializer;
 
-            var contents = motd.components.Components;
-            var expect = new List<MotdComponent>() {
-                new() { Color = "#808080", Text = "기모찌서버" }
-            };
+public class JsonDeserializerTests {
+    [Fact]
+    public void VerySimpleJsonMotdDeserialize() {
+        Motd motd = @"{""text"":""기모찌서버""}";
 
-            Assert.True(contents.SequenceEqual(expect));
-        }
-        [Fact]
-        public void ComplexJsonMotdDeserialize() {
-            //string motd = @"{""extra"":[{""Color"":""aqua"",""text"":""◆ ""},{""bold"":true,""italic"":true,""Color"":""#00ffff"",""text"":""스""},{""bold"":true,""italic"":true,""Color"":""#19e5ff"",""text"":""티""},{""bold"":true,""italic"":true,""Color"":""#33ccff"",""text"":""브""},{""bold"":true,""italic"":true,""Color"":""#4cb2ff"",""text"":""""},{""bold"":true,""italic"":true,""Color"":""#6699ff"",""text"":""갤""},{""bold"":true,""italic"":true,""Color"":""#7f7fff"",""text"":""러""},{""bold"":true,""italic"":true,""Color"":""#9966ff"",""text"":""리""},{""bold"":true,""italic"":true,""Color"":""#b24cff"",""text"":""""},{""bold"":true,""italic"":true,""Color"":""#cc32ff"",""text"":""놀""},{""bold"":true,""italic"":true,""Color"":""#e519ff"",""text"":""이""},{""bold"":true,""italic"":true,""Color"":""#ff00ff"",""text"":""터""},{""Color"":""light_purple"",""text"":"" ◆\r\n""},{""Color"":""gray"",""text"":""건축\/쉼터""}],""text"":""""}";
-            Motd motd =
-                "{\"extra\":[{\"color\":\"aqua\",\"text\":\"◆ \"},{\"bold\":true,\"italic\":true,\"color\":\"#00ffff\",\"text\":\"스\"},{\"bold\":true,\"italic\":true,\"color\":\"#19e5ff\",\"text\":\"티\"},{\"bold\":true,\"italic\":true,\"color\":\"#33ccff\",\"text\":\"브\"},{\"bold\":true,\"italic\":true,\"color\":\"#4cb2ff\",\"text\":\"\"},{\"bold\":true,\"italic\":true,\"color\":\"#6699ff\",\"text\":\"갤\"},{\"bold\":true,\"italic\":true,\"color\":\"#7f7fff\",\"text\":\"러\"},{\"bold\":true,\"italic\":true,\"color\":\"#9966ff\",\"text\":\"리\"},{\"bold\":true,\"italic\":true,\"color\":\"#b24cff\",\"text\":\"\"},{\"bold\":true,\"italic\":true,\"color\":\"#cc32ff\",\"text\":\"놀\"},{\"bold\":true,\"italic\":true,\"color\":\"#e519ff\",\"text\":\"이\"},{\"bold\":true,\"italic\":true,\"color\":\"#ff00ff\",\"text\":\"터\"},{\"color\":\"light_purple\",\"text\":\" ◆\"},{\"color\":\"gray\",\"text\":\"건축/쉼터\"}],\"text\":\"\"}";
+        var contents = motd.components.Components;
+        var expect = new List<MotdComponent>() {
+            new() { Color = "#808080", Text = "기모찌서버" }
+        };
 
-            var contents = motd.components.Components;
+        Assert.True(contents.SequenceEqual(expect));
+    }
 
-            var expect = new List<MotdComponent>() {
-                new(){ Color = "#55FFFF", Text = "◆ " },
-                new(){ Color = "#00ffff", Text = "스", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#19e5ff", Text = "티", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#33ccff", Text = "브", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#4cb2ff", Text = " ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#6699ff", Text = "갤", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#7f7fff", Text = "러", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#9966ff", Text = "리", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#b24cff", Text = " ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#cc32ff", Text = "놀", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#e519ff", Text = "이", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#ff00ff", Text = "터", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic } },
-                new(){ Color = "#FF55FF", Text = " ◆" },
-                new(){ Color = "#AAAAAA", Text = "건축/쉼터" },
-            };
+    [Fact]
+    public void ComplexJsonMotdDeserialize() {
+        //string motd = @"{""extra"":[{""Color"":""aqua"",""text"":""◆ ""},{""bold"":true,""italic"":true,""Color"":""#00ffff"",""text"":""스""},{""bold"":true,""italic"":true,""Color"":""#19e5ff"",""text"":""티""},{""bold"":true,""italic"":true,""Color"":""#33ccff"",""text"":""브""},{""bold"":true,""italic"":true,""Color"":""#4cb2ff"",""text"":""""},{""bold"":true,""italic"":true,""Color"":""#6699ff"",""text"":""갤""},{""bold"":true,""italic"":true,""Color"":""#7f7fff"",""text"":""러""},{""bold"":true,""italic"":true,""Color"":""#9966ff"",""text"":""리""},{""bold"":true,""italic"":true,""Color"":""#b24cff"",""text"":""""},{""bold"":true,""italic"":true,""Color"":""#cc32ff"",""text"":""놀""},{""bold"":true,""italic"":true,""Color"":""#e519ff"",""text"":""이""},{""bold"":true,""italic"":true,""Color"":""#ff00ff"",""text"":""터""},{""Color"":""light_purple"",""text"":"" ◆\r\n""},{""Color"":""gray"",""text"":""건축\/쉼터""}],""text"":""""}";
+        Motd motd =
+            "{\"extra\":[{\"color\":\"aqua\",\"text\":\"◆ \"},{\"bold\":true,\"italic\":true,\"color\":\"#00ffff\",\"text\":\"스\"},{\"bold\":true,\"italic\":true,\"color\":\"#19e5ff\",\"text\":\"티\"},{\"bold\":true,\"italic\":true,\"color\":\"#33ccff\",\"text\":\"브\"},{\"bold\":true,\"italic\":true,\"color\":\"#4cb2ff\",\"text\":\"\"},{\"bold\":true,\"italic\":true,\"color\":\"#6699ff\",\"text\":\"갤\"},{\"bold\":true,\"italic\":true,\"color\":\"#7f7fff\",\"text\":\"러\"},{\"bold\":true,\"italic\":true,\"color\":\"#9966ff\",\"text\":\"리\"},{\"bold\":true,\"italic\":true,\"color\":\"#b24cff\",\"text\":\"\"},{\"bold\":true,\"italic\":true,\"color\":\"#cc32ff\",\"text\":\"놀\"},{\"bold\":true,\"italic\":true,\"color\":\"#e519ff\",\"text\":\"이\"},{\"bold\":true,\"italic\":true,\"color\":\"#ff00ff\",\"text\":\"터\"},{\"color\":\"light_purple\",\"text\":\" ◆\"},{\"color\":\"gray\",\"text\":\"건축/쉼터\"}],\"text\":\"\"}";
 
-            Assert.True(contents.SequenceEqual(expect));
-        }
+        var contents = motd.components.Components;
 
-        [Fact]
-        public void SectionSignMotdDeserializeWithEscapeCharacter() {
-            Motd motd = "                §aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
+        var expect = new List<MotdComponent>() {
+            new() { Color = "#55FFFF", Text = "◆ " },
+            new() {
+                Color = "#00ffff", Text = "스",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() {
+                Color = "#19e5ff", Text = "티",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() {
+                Color = "#33ccff", Text = "브",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() {
+                Color = "#4cb2ff", Text = " ",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() {
+                Color = "#6699ff", Text = "갤",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() {
+                Color = "#7f7fff", Text = "러",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() {
+                Color = "#9966ff", Text = "리",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() {
+                Color = "#b24cff", Text = " ",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() {
+                Color = "#cc32ff", Text = "놀",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() {
+                Color = "#e519ff", Text = "이",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() {
+                Color = "#ff00ff", Text = "터",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold, MotdTextFormat.Italic }
+            },
+            new() { Color = "#FF55FF", Text = " ◆" },
+            new() { Color = "#AAAAAA", Text = "건축/쉼터" },
+        };
+
+        Assert.True(contents.SequenceEqual(expect));
+    }
+
+    [Fact]
+    public void SectionSignMotdDeserializeWithEscapeCharacter() {
+        Motd motd =
+            "                §aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
 
 
-            var contents = motd.components.Components;
+        var contents = motd.components.Components;
 
 
-            var expect = new List<MotdComponent>() {
-                new(){ Color = "#808080", Text = "                " },
-                new(){ Color = "#55FF55", Text = "Hypixel Network " },
-                new(){ Color = "#FF5555", Text = "[1.8-1.20]" },
-                new(){ Color = "#808080", Text = "        ", LineBreak = true, TextFormatting = new HashSet<MotdTextFormat>() { MotdTextFormat.Noraml } },
-                new(){ Color = "#55FFFF", Text = "DROPPER v1.0 ", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold } },
-                new(){ Color = "#AAAAAA", Text = "- " },
-                new(){ Color = "#FFAA00", Text = "NEW ARCADE LOBBY", TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold } }
-            };
+        var expect = new List<MotdComponent>() {
+            new() { Color = "#808080", Text = "                " },
+            new() { Color = "#55FF55", Text = "Hypixel Network " },
+            new() { Color = "#FF5555", Text = "[1.8-1.20]" },
+            new() {
+                Color = "#808080", Text = "        ", LineBreak = true,
+                TextFormatting = new HashSet<MotdTextFormat>() { MotdTextFormat.Noraml }
+            },
+            new() {
+                Color = "#55FFFF", Text = "DROPPER v1.0 ",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }
+            },
+            new() { Color = "#AAAAAA", Text = "- " },
+            new() {
+                Color = "#FFAA00", Text = "NEW ARCADE LOBBY",
+                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }
+            }
+        };
+    }
 
-            
-        }
-
-        [Fact]
-        public void SimpleJsonMotdDeserialize() {
-            Motd motd = @"{""color"" : ""gold"",""bold"" : true,""text"" : ""뉴인타운+RPG+반야생 스망호 1.18.2~1.20.2""}";
+    [Fact]
+    public void SimpleJsonMotdDeserialize() {
+        Motd motd = @"{""color"" : ""gold"",""bold"" : true,""text"" : ""뉴인타운+RPG+반야생 스망호 1.18.2~1.20.2""}";
 
 
-            var contents = motd.components.Components;
+        var contents = motd.components.Components;
 
-            var except = new List<MotdComponent>() {
-                new(){ Color = "#FFAA00", Text = "뉴인타운+RPG+반야생 스망호 1.18.2~1.20.2", TextFormatting = new HashSet<MotdTextFormat>() { MotdTextFormat.Bold } }
-            };
-        }
+        var except = new List<MotdComponent>() {
+            new() {
+                Color = "#FFAA00", Text = "뉴인타운+RPG+반야생 스망호 1.18.2~1.20.2",
+                TextFormatting = new HashSet<MotdTextFormat>() { MotdTextFormat.Bold }
+            }
+        };
     }
 }
-
-
-

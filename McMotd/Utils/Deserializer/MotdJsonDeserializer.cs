@@ -4,6 +4,7 @@ using McMotd.API;
 using McMotd.Enum;
 using McMotd.Extension;
 using McMotd.Model;
+using McMotd.Utils.Converter;
 
 namespace McMotd.Utils.Deserializer;
 
@@ -12,48 +13,16 @@ public class MotdJsonDeserializer: IMotdDeserializer {
     public MotdJsonDeserializer(MotdOption option) {
         this._option = option;
     }
-    public MotdComponents Deserialize(string RawMotd) {
-        throw new NotImplementedException();
-    }
-}
+    public MotdComponents Deserialize(string RawMotd) { 
+        var options = new JsonSerializerOptions {
+            Converters = { new MotdJsonConverter(new MotdOption()) }
+        };
 
-class MotdCustomJsonDeserializer : JsonConverter<MotdComponents> {
-    private MotdOption _option;
-    public MotdCustomJsonDeserializer(MotdOption option) {
-        this._option = option;
-    }
-    public override MotdComponents? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
-        if (reader.TokenType is not JsonTokenType.StartObject || reader.TokenType is not JsonTokenType.StartArray)
-            return null;
-
-        var motd = new MotdComponents();
-
-        using JsonDocument doc = JsonDocument.ParseValue(ref reader);
-        var root = doc.RootElement;
-        if (root.TryGetProperty("extra", out var extra)) {
-            foreach (var obj in extra.EnumerateArray()) {
-                var component = new MotdComponent();
-                foreach (JsonProperty property in obj.EnumerateObject()) {
-                    component.ParseJsonObject(property,_option);
-                }
-                motd.Components.Add(component);
-            }
-        }
-        else {
-            var component = new MotdComponent();
-            foreach (var property in root.EnumerateObject()) {
-                component.ParseJsonObject(property,_option);
-            }
-            motd.Components.Add(component);
+        if (_option.Options.Contains(MotdParsingOption.NoLineBreak)) {
+            RawMotd = McRegex.lineBreakPattern.Replace(RawMotd,string.Empty);
         }
         
-        throw new NotImplementedException();
-    }
-
-    public override void Write(Utf8JsonWriter writer, MotdComponents motd, JsonSerializerOptions options) {
-        writer.WriteStartObject(); 
-        foreach (var component in motd.Components) {
-            
-        }
+        var motd =  JsonSerializer.Deserialize<MotdComponents>(RawMotd,options);
+        return motd;
     }
 }

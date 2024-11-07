@@ -1,4 +1,4 @@
-namespace McMotd.Model;
+namespace McMotd.Enum;
 
 public enum MotdHtmlOption {
     UseClass,

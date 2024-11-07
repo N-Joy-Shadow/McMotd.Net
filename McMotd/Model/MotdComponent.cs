@@ -1,6 +1,9 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using McMotd.Data;
 using McMotd.Enum;
+using McMotd.Utils.Converter;
+using McMotd.Utils.Deserializer;
 
 namespace McMotd.Model;
 
@@ -24,6 +27,8 @@ public class MotdComponent {
     public HashSet<MotdTextFormat> TextFormatting { get; set; } = new();
     public bool LineBreak { get; set; } = false;
 
+
+    
     #region Override Function
     public override bool Equals(object? obj) {
         if (obj == null || GetType() != obj.GetType()) {

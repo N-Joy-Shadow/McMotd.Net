@@ -5,6 +5,6 @@ namespace McMotd.Utils.Serializer;
 
 public class JsonSerializer: IMotdSerializer<string> {
     public string Serialize(MotdComponents motdComponents) {
-        throw new NotImplementedException();
+        return System.Text.Json.JsonSerializer.Serialize(motdComponents.Components);
     }
 }
