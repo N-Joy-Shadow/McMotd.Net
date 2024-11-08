@@ -15,7 +15,7 @@ public class MotdJsonDeserializer: IMotdDeserializer {
     }
     public MotdComponents Deserialize(string RawMotd) { 
         var options = new JsonSerializerOptions {
-            Converters = { new MotdJsonConverter(new MotdOption()) }
+            Converters = { new MotdJsonConverter(_option) }
         };
 
         if (_option.Options.Contains(MotdParsingOption.NoLineBreak)) {

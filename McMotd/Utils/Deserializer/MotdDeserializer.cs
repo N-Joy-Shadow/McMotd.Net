@@ -16,9 +16,15 @@ namespace McMotd.Utils.Deserializer
 {
     public class MotdDeserializer: IMotdDeserializer
     {
+        #if DEBUG
+        private readonly SectionSignDeserializer sectionSignDeserializer;
+        private readonly MotdJsonDeserializer jsonDeserializer;
+        private readonly PlainTextDeserializer textDeserializer;
+        #else
         private readonly IMotdDeserializer sectionSignDeserializer;
         private readonly IMotdDeserializer jsonDeserializer;
         private readonly IMotdDeserializer textDeserializer;
+        #endif
         public MotdDeserializer(MotdOption option)
         {
             this.sectionSignDeserializer = new SectionSignDeserializer(option);
@@ -42,8 +48,7 @@ namespace McMotd.Utils.Deserializer
             return Rawmotd.Contains("§");
         }
         private bool IsJson(string RawMotd) {
-            //TODO:  나중에 확인 한번 하기
-            RawMotd = RawMotd.Trim(); //기억이 안남 나중에 확인 바람
+            RawMotd = RawMotd.Trim();
             return (RawMotd.StartsWith("{") && RawMotd.EndsWith("}")) || 
                    (RawMotd.StartsWith("[") && RawMotd.EndsWith("]"));
         }

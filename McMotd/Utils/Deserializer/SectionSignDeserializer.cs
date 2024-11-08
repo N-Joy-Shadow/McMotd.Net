@@ -25,9 +25,9 @@ public class SectionSignDeserializer : IMotdDeserializer {
     public MotdComponents Deserialize(string rawMotd) {
         //전 처리 과정이 필요함
         if(_option.Options.Contains(MotdParsingOption.NoLineBreak)) 
-            McRegex.lineBreakPattern.Replace(rawMotd,string.Empty);
+            rawMotd = McRegex.lineBreakPattern.Replace(rawMotd,string.Empty);
         else
-            McRegex.lineBreakPattern.Replace(rawMotd, $"{SIGN}z");
+            rawMotd = McRegex.lineBreakPattern.Replace(rawMotd, $"{SIGN}z");
 
         //전 처리 끝
         MotdComponents motd = new();
