@@ -12,15 +12,17 @@ using McMotd.Utils.Deserializer;
 namespace McMotd;
 
 public class Motd {
+    private MotdDeserializer Derializer;
     public string RawMotd { get; }
-    public MotdOption Option { get; set; }
-    //want to set private 
     public MotdComponents components { get; set; }
     
-    public Motd(string motd) {
+    public Motd(string motd): this(motd,new MotdOption()) {
+    }
+    
+    public Motd(string motd, MotdOption option) {
         this.RawMotd = motd;
-        this.Option = new();
-        this.ParseMotd();
+        this.Derializer = new MotdDeserializer(option);
+        this.components = this.Derializer.Deserialize(this.RawMotd);
     }
     public static implicit operator Motd(string motd) {
         return new (motd);
@@ -34,14 +36,6 @@ public class Motd {
 
         return sb.ToString();
 
-    }
-    #endregion
-    #region Private Function Section
-
-    private void ParseMotd() {
-        //hmm.. using singleton not bad?
-        //temp code
-        components = new MotdDeserializer(Option).Deserialize(this.RawMotd);
     }
     #endregion
 }

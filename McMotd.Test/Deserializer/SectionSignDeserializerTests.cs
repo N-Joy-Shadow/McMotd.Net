@@ -52,15 +52,16 @@ public class SectionSignDeserializerTests {
 
     [Fact]
     public void SectionDeserializerStartWithSignAndWithEscapeCharacter() {
-        Motd motd = @"§aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
-        motd.Option.Options.Add(MotdParsingOption.NoLineBreak);
+        var option = new MotdOption() { Options = new() { MotdParsingOption.NoLineBreak } };
+
+        Motd motd = new Motd(@"§aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY", option);
         // Act
         var contents = motd.components.Components;
         var expect = new List<MotdComponent>() {
             new() { Color = "#55FF55", Text = "Hypixel Network " },
-            new() { Color = "#FF5555", Text = "[1.8-1.20]" },
+            new() { Color = "#FF5555", Text = "[1.8-1.20]        " },
             new() {
-                Color = "#55FFFF", Text = "        DROPPER v1.0 ",
+                Color = "#55FFFF", Text = "DROPPER v1.0 ",
                 TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }
             },
             new() { Color = "#AAAAAA", Text = "- " },
