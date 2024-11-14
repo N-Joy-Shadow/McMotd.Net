@@ -29,6 +29,9 @@ public class SectionSignDeserializer : IMotdDeserializer {
         else
             rawMotd = McRegex.lineBreakPattern.Replace(rawMotd.Replace(Environment.NewLine,$"{SIGN}z"),$"{SIGN}z");
 
+        if(rawMotd.StartsWith("\"") && rawMotd.EndsWith("\""))
+            rawMotd = rawMotd[1..^1];
+        
 
         //전 처리 끝
         MotdComponents motd = new();
