@@ -51,6 +51,7 @@ public partial class MotdView : ContentView {
 
 
     private void Initailize() {
+        vStack.Clear();
         var hStack = new StackLayout() { Orientation = StackOrientation.Horizontal };
         if(Motd is null) {
             return;
