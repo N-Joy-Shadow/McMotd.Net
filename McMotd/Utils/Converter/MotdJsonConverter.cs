@@ -22,8 +22,13 @@ public class MotdJsonConverter : JsonConverter<MotdComponents> {
         if (root.TryGetProperty("extra", out var extra)) {
             foreach (var obj in extra.EnumerateArray()) {
                 var component = new MotdComponent();
-                foreach (JsonProperty property in obj.EnumerateObject()) {
-                    component.ParseJsonObject(property,_option);
+                if (obj.ValueKind == JsonValueKind.Object) {
+                    foreach (JsonProperty property in obj.EnumerateObject()) {
+                        component.ParseJsonObject(property,_option);
+                    }
+                }
+                else if(obj.ValueKind == JsonValueKind.String) {
+                    component.Text = obj.GetString();
                 }
                 motd.Components.Add(component);
             }
