@@ -12,7 +12,7 @@ public class PlainTextDeserializer: IMotdDeserializer {
     }
     public MotdComponents Deserialize(string RawMotd) {
         var motd = new MotdComponents();
-        motd.Components.Add(new() {
+        motd.Add(new() {
             Text = RawMotd,
             Color = "#808080",
             TextFormatting = new(),

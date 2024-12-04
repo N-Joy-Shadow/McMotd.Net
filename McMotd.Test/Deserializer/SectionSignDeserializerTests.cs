@@ -9,7 +9,7 @@ public class SectionSignDeserializerTests {
         // Arrange
         Motd motd = @"                §aHypixel Network §c[1.8-1.20]        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
         // Act
-        var contents = motd.components.Components;
+        var contents = motd.Components;
         var expect = new List<MotdComponent>() {
             new() { Color = "#808080", Text = "                " },
             new() { Color = "#55FF55", Text = "Hypixel Network " },
@@ -32,7 +32,7 @@ public class SectionSignDeserializerTests {
     public void SectionDeserializerStartWithSign() {
         Motd motd = @"§aHypixel Network §c[1.8-1.20]        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
         // Act
-        var contents = motd.components.Components;
+        var contents = motd.Components;
         var expect = new List<MotdComponent>() {
             new() { Color = "#55FF55", Text = "Hypixel Network " },
             new() { Color = "#FF5555", Text = "[1.8-1.20]        " },
@@ -56,7 +56,7 @@ public class SectionSignDeserializerTests {
 
         Motd motd = new Motd(@"§aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY", option);
         // Act
-        var contents = motd.components.Components;
+        var contents = motd.Components;
         var expect = new List<MotdComponent>() {
             new() { Color = "#55FF55", Text = "Hypixel Network " },
             new() { Color = "#FF5555", Text = "[1.8-1.20]        " },

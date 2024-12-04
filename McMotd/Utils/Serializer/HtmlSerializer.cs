@@ -6,11 +6,12 @@ using McMotd.Model;
 namespace McMotd.Utils.Serializer;
 
 public class HtmlSerializer: IMotdSerializer<string> {
+    public static HtmlSerializer Default { get; } = new HtmlSerializer();
     public string Serialize(MotdComponents motdComponents) {
         var sb = new StringBuilder();
         
         sb.Append(@"<div class=""mcmotd-container"">");
-        foreach (var component in motdComponents.Components) {
+        foreach (var component in motdComponents) {
             sb.Append("<span");
             sb.Append($" style=\"color:{component.Color};");
             sb.Append(HtmlStyle(component.TextFormatting));

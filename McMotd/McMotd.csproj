@@ -17,7 +17,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/N-Joy-Shadow/McMotd.Net/tree/stable/McMotdParser</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-    <RootNamespace>McMotdParser</RootNamespace>
+    <RootNamespace>McMotd</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\"/>

@@ -57,7 +57,7 @@ public partial class MotdView : ContentView {
             return;
         }
 
-        foreach (var component in Motd.components.Components) {
+        foreach (var component in Motd.Components) {
             if (component.LineBreak) {
                 vStack.Children.Add(hStack);
                 hStack = new StackLayout() { Orientation = StackOrientation.Horizontal };

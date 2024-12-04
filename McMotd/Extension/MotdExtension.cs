@@ -4,14 +4,14 @@ namespace McMotd.Extension;
 
 public static class MotdExtension {
     public static string ToHtml(this Motd motd) {
-        return new HtmlSerializer().Serialize(motd.components);
+        return HtmlSerializer.Default.Serialize(motd.Components);
     }
 
     public static string ToJson(this Motd motd) {
-        return new JsonSerializer().Serialize(motd.components);
+        return JsonSerializer.Default.Serialize(motd.Components);
     }
     
     public static string ToPlainText(this Motd motd) {
-        return new PlainTextSerializer().Serialize(motd.components);
+        return PlainTextSerializer.Default.Serialize(motd.Components);
     }
 }

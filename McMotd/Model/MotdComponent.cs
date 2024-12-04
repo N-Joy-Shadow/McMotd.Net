@@ -7,8 +7,7 @@ using McMotd.Utils.Deserializer;
 
 namespace McMotd.Model;
 
-public class MotdComponents {
-    public List<MotdComponent> Components { get; set; } = new();
+public class MotdComponents : List<MotdComponent>{
     
     #region Override Function
     public override bool Equals(object? obj) {
@@ -16,7 +15,7 @@ public class MotdComponents {
             return false;
         }
         MotdComponents other = (MotdComponents)obj;   
-        return this.Components.SequenceEqual(other.Components);
+        return this.SequenceEqual(other);
     }
     #endregion
 }

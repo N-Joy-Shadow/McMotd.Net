@@ -9,7 +9,7 @@ public class JsonDeserializerTests {
     public void VerySimpleJsonMotdDeserialize() {
         Motd motd = @"{""text"":""기모찌서버""}";
 
-        var contents = motd.components.Components;
+        var contents = motd.Components;
         var expect = new List<MotdComponent>() {
             new() { Color = "#808080", Text = "기모찌서버" }
         };
@@ -23,7 +23,7 @@ public class JsonDeserializerTests {
         Motd motd =
             "{\"extra\":[{\"color\":\"aqua\",\"text\":\"◆ \"},{\"bold\":true,\"italic\":true,\"color\":\"#00ffff\",\"text\":\"스\"},{\"bold\":true,\"italic\":true,\"color\":\"#19e5ff\",\"text\":\"티\"},{\"bold\":true,\"italic\":true,\"color\":\"#33ccff\",\"text\":\"브\"},{\"bold\":true,\"italic\":true,\"color\":\"#4cb2ff\",\"text\":\"\"},{\"bold\":true,\"italic\":true,\"color\":\"#6699ff\",\"text\":\"갤\"},{\"bold\":true,\"italic\":true,\"color\":\"#7f7fff\",\"text\":\"러\"},{\"bold\":true,\"italic\":true,\"color\":\"#9966ff\",\"text\":\"리\"},{\"bold\":true,\"italic\":true,\"color\":\"#b24cff\",\"text\":\"\"},{\"bold\":true,\"italic\":true,\"color\":\"#cc32ff\",\"text\":\"놀\"},{\"bold\":true,\"italic\":true,\"color\":\"#e519ff\",\"text\":\"이\"},{\"bold\":true,\"italic\":true,\"color\":\"#ff00ff\",\"text\":\"터\"},{\"color\":\"light_purple\",\"text\":\" ◆\"},{\"color\":\"gray\",\"text\":\"건축/쉼터\"}],\"text\":\"\"}";
 
-        var contents = motd.components.Components;
+        var contents = motd.Components;
 
         var expect = new List<MotdComponent>() {
             new() { Color = "#55FFFF", Text = "◆ " },
@@ -84,7 +84,7 @@ public class JsonDeserializerTests {
             "                §aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
 
 
-        var contents = motd.components.Components;
+        var contents = motd.Components;
 
 
         var expect = new List<MotdComponent>() {
@@ -109,10 +109,10 @@ public class JsonDeserializerTests {
 
     [Fact]
     public void SimpleJsonMotdDeserialize() {
+        //TODO: 예측 케이스 추가
         Motd motd = @"{""color"" : ""gold"",""bold"" : true,""text"" : ""뉴인타운+RPG+반야생 스망호 1.18.2~1.20.2""}";
 
-
-        var contents = motd.components.Components;
+        var contents = motd.Components;
 
         var except = new List<MotdComponent>() {
             new() {
@@ -120,5 +120,20 @@ public class JsonDeserializerTests {
                 TextFormatting = new HashSet<MotdTextFormat>() { MotdTextFormat.Bold }
             }
         };
+    }
+
+    [Fact]
+    public void CompleExtraNoEscapeButExistLineBreakJsonMotdDeserialize() {
+        Motd motd =
+            @"{""extra"":[{""extra"":[{""color"":""#4482B7"",""extra"":[{""bold"":true,""extra"":[{""color"":""#4482B7"",""text"":""M""},{""color"":""#4787BD"",""text"":""I""},{""color"":""#4A8CC3"",""text"":""N""},{""color"":""#4D90C8"",""text"":""E""},{""color"":""#5095CE"",""text"":""""},{""color"":""#549AD4"",""text"":""P""},{""color"":""#579FDA"",""text"":""L""},{""color"":""#5AA4E0"",""text"":""A""},{""color"":""#5DA8E5"",""text"":""N""},{""color"":""#60ADEB"",""text"":""E""},{""color"":""#63B2F1"",""text"":""T""}],""text"":""""},{""color"":""#63B2F1"",""text"":"" ₪""}],""text"":""₪ ""}],""text"":""""},"""",{""extra"":[{""color"":""#63F1D5"",""text"":""당""},{""color"":""#67F2D6"",""text"":""신""},{""color"":""#6BF2D8"",""text"":""의""},{""color"":""#6FF3D9"",""text"":""""},{""color"":""#74F4DB"",""text"":""모""},{""color"":""#78F4DC"",""text"":""험""},{""color"":""#7CF5DD"",""text"":""을""},{""color"":""#80F6DF"",""text"":""""},{""color"":""#84F7E0"",""text"":""시""},{""color"":""#88F7E1"",""text"":""작""},{""color"":""#8DF8E3"",""text"":""하""},{""color"":""#91F9E4"",""text"":""세""},{""color"":""#95F9E6"",""text"":""요""},{""color"":""#99FAE7"",""text"":""!""}],""text"":""""}],""text"":""""}";
+        
+        var contents = motd.Components;
+        var except = new List<MotdComponent>() {
+            new() {
+                Color = "#FFAA00", Text = "뉴인타운+RPG+반야생 스망호 1.18.2~1.20.2",
+                TextFormatting = new HashSet<MotdTextFormat>() { MotdTextFormat.Bold }
+            }
+        };
+
     }
 }

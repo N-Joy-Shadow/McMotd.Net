@@ -37,7 +37,7 @@ public class SectionSignDeserializer : IMotdDeserializer {
         MotdComponents motd = new();
 
         if (!rawMotd.StartsWith(SIGN))
-            motd.Components.Add(new() {
+            motd.Add(new() {
                 Text = rawMotd.Split(SIGN)[0]
             });
         
@@ -55,7 +55,7 @@ public class SectionSignDeserializer : IMotdDeserializer {
             var secondSectionSign = match.Groups[4].Value;
             component.ParseSectionSign(secondSectionSign);
 
-            motd.Components.Add(component);
+            motd.Add(component);
         }
 
         return motd;
