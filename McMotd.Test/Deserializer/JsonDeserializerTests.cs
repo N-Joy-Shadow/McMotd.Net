@@ -78,34 +78,7 @@ public class JsonDeserializerTests {
         Assert.True(contents.SequenceEqual(expect));
     }
 
-    [Fact]
-    public void SectionSignMotdDeserializeWithEscapeCharacter() {
-        Motd motd =
-            "                §aHypixel Network §c[1.8-1.20]\r\n        §b§lDROPPER v1.0 §7- §6§lNEW ARCADE LOBBY";
-
-
-        var contents = motd.Components;
-
-
-        var expect = new List<MotdComponent>() {
-            new() { Color = "#808080", Text = "                " },
-            new() { Color = "#55FF55", Text = "Hypixel Network " },
-            new() { Color = "#FF5555", Text = "[1.8-1.20]" },
-            new() {
-                Color = "#808080", Text = "        ", LineBreak = true,
-                TextFormatting = new HashSet<MotdTextFormat>() { MotdTextFormat.Noraml }
-            },
-            new() {
-                Color = "#55FFFF", Text = "DROPPER v1.0 ",
-                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }
-            },
-            new() { Color = "#AAAAAA", Text = "- " },
-            new() {
-                Color = "#FFAA00", Text = "NEW ARCADE LOBBY",
-                TextFormatting = new HashSet<MotdTextFormat> { MotdTextFormat.Bold }
-            }
-        };
-    }
+    
 
     [Fact]
     public void SimpleJsonMotdDeserialize() {
@@ -114,12 +87,15 @@ public class JsonDeserializerTests {
 
         var contents = motd.Components;
 
-        var except = new List<MotdComponent>() {
+        var expect = new List<MotdComponent>() {
             new() {
                 Color = "#FFAA00", Text = "뉴인타운+RPG+반야생 스망호 1.18.2~1.20.2",
                 TextFormatting = new HashSet<MotdTextFormat>() { MotdTextFormat.Bold }
             }
         };
+        
+        Assert.True(contents.SequenceEqual(expect));
+
     }
 
     [Fact]
@@ -128,12 +104,38 @@ public class JsonDeserializerTests {
             @"{""extra"":[{""extra"":[{""color"":""#4482B7"",""extra"":[{""bold"":true,""extra"":[{""color"":""#4482B7"",""text"":""M""},{""color"":""#4787BD"",""text"":""I""},{""color"":""#4A8CC3"",""text"":""N""},{""color"":""#4D90C8"",""text"":""E""},{""color"":""#5095CE"",""text"":""""},{""color"":""#549AD4"",""text"":""P""},{""color"":""#579FDA"",""text"":""L""},{""color"":""#5AA4E0"",""text"":""A""},{""color"":""#5DA8E5"",""text"":""N""},{""color"":""#60ADEB"",""text"":""E""},{""color"":""#63B2F1"",""text"":""T""}],""text"":""""},{""color"":""#63B2F1"",""text"":"" ₪""}],""text"":""₪ ""}],""text"":""""},"""",{""extra"":[{""color"":""#63F1D5"",""text"":""당""},{""color"":""#67F2D6"",""text"":""신""},{""color"":""#6BF2D8"",""text"":""의""},{""color"":""#6FF3D9"",""text"":""""},{""color"":""#74F4DB"",""text"":""모""},{""color"":""#78F4DC"",""text"":""험""},{""color"":""#7CF5DD"",""text"":""을""},{""color"":""#80F6DF"",""text"":""""},{""color"":""#84F7E0"",""text"":""시""},{""color"":""#88F7E1"",""text"":""작""},{""color"":""#8DF8E3"",""text"":""하""},{""color"":""#91F9E4"",""text"":""세""},{""color"":""#95F9E6"",""text"":""요""},{""color"":""#99FAE7"",""text"":""!""}],""text"":""""}],""text"":""""}";
         
         var contents = motd.Components;
-        var except = new List<MotdComponent>() {
-            new() {
-                Color = "#FFAA00", Text = "뉴인타운+RPG+반야생 스망호 1.18.2~1.20.2",
-                TextFormatting = new HashSet<MotdTextFormat>() { MotdTextFormat.Bold }
-            }
+        var expect = new List<MotdComponent>() {
+            new() { Color = "#63B2F1", Text = "  ₪", },
+            new() { Color = "#4482B7", Text = "M" },
+            new() { Color = "#4787BD", Text = "I" },
+            new() { Color = "#4A8CC3", Text = "N" },
+            new() { Color = "#4D90C8", Text = "E" },
+            new() { Color = "#5095CE", Text = "" },
+            new() { Color = "#549AD4", Text = "P" },
+            new() { Color = "#579FDA", Text = "L" },
+            new() { Color = "#5AA4E0", Text = "A" },
+            new() { Color = "#5DA8E5", Text = "N" },
+            new() { Color = "#60ADEB", Text = "E" },
+            new() { Color = "#63B2F1", Text = "T" },
+            new() { Color = "#4482B7", Text = "₪ " },
+            new() { LineBreak =true},
+            new() { Color = "#63F1D5", Text = "당" },
+            new() { Color = "#67F2D6", Text = "신" },
+            new() { Color = "#6BF2D8", Text = "의" },
+            new() { Color = "#6FF3D9", Text = " " },
+            new() { Color = "#74F4DB", Text = "모" },
+            new() { Color = "#78F4DC", Text = "험" },
+            new() { Color = "#7CF5DD", Text = "을" },
+            new() { Color = "#80F6DF", Text = " " },
+            new() { Color = "#84F7E0", Text = "시" },
+            new() { Color = "#88F7E1", Text = "작" },
+            new() { Color = "#8DF8E3", Text = "하" },
+            new() { Color = "#91F9E4", Text = "세" },
+            new() { Color = "#95F9E6", Text = "요" },
+            new() { Color = "#99FAE7", Text = "!" },
+            
         };
+        Assert.True(contents.SequenceEqual(expect));
 
     }
 }

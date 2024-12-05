@@ -1,0 +1,96 @@
+{
+  "extra" : [ {
+    "extra" : [ {
+      "color" : "#4482B7",
+      "extra" : [ {
+        "bold" : true,
+        "extra" : [ {
+          "color" : "#4482B7",
+          "text" : "M"
+        }, {
+          "color" : "#4787BD",
+          "text" : "I"
+        }, {
+          "color" : "#4A8CC3",
+          "text" : "N"
+        }, {
+          "color" : "#4D90C8",
+          "text" : "E"
+        }, {
+          "color" : "#5095CE",
+          "text" : ""
+        }, {
+          "color" : "#549AD4",
+          "text" : "P"
+        }, {
+          "color" : "#579FDA",
+          "text" : "L"
+        }, {
+          "color" : "#5AA4E0",
+          "text" : "A"
+        }, {
+          "color" : "#5DA8E5",
+          "text" : "N"
+        }, {
+          "color" : "#60ADEB",
+          "text" : "E"
+        }, {
+          "color" : "#63B2F1",
+          "text" : "T"
+        } ],
+        "text" : ""
+      }, {
+        "color" : "#63B2F1",
+        "text" : " ₪"
+      } ],
+      "text" : "₪ "
+    } ],
+    "text" : ""
+  }, "", {
+    "extra" : [ {
+      "color" : "#63F1D5",
+      "text" : "당"
+    }, {
+      "color" : "#67F2D6",
+      "text" : "신"
+    }, {
+      "color" : "#6BF2D8",
+      "text" : "의"
+    }, {
+      "color" : "#6FF3D9",
+      "text" : ""
+    }, {
+      "color" : "#74F4DB",
+      "text" : "모"
+    }, {
+      "color" : "#78F4DC",
+      "text" : "험"
+    }, {
+      "color" : "#7CF5DD",
+      "text" : "을"
+    }, {
+      "color" : "#80F6DF",
+      "text" : ""
+    }, {
+      "color" : "#84F7E0",
+      "text" : "시"
+    }, {
+      "color" : "#88F7E1",
+      "text" : "작"
+    }, {
+      "color" : "#8DF8E3",
+      "text" : "하"
+    }, {
+      "color" : "#91F9E4",
+      "text" : "세"
+    }, {
+      "color" : "#95F9E6",
+      "text" : "요"
+    }, {
+      "color" : "#99FAE7",
+      "text" : "!"
+    } ],
+    "text" : ""
+  } ],
+  "text" : ""
+}
