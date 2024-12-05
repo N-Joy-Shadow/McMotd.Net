@@ -6,7 +6,7 @@ public interface IMotdDeserializer {
     /// <summary>
     /// Deserialize the raw Motd text
     /// </summary>
-    /// <param name="rawMotd">Text로 적용된 Motd</param>
+    /// <param name="RawMotd">Text로 적용된 Motd</param>
     /// <returns></returns>
-    MotdComponents Deserialize(string rawMotd);
+    MotdComponents Deserialize(string RawMotd);
 }

@@ -2,6 +2,7 @@ using System.Text.Json;
 using McMotd.Data;
 using McMotd.Enum;
 using McMotd.Model;
+using McMotd.Utils;
 
 namespace McMotd.Extension;
 
@@ -20,15 +21,13 @@ public static class MotdComponentParsingExtension {
             case "x":
                 component.TextFormatting.Add(MotdData.TextFormatDict[sectionSign]);
                 break;
-            case "z":
-                component.LineBreak = true;
-                break;
             default:
                 component.Color = MotdData.ColorDict[sectionSign];
                 break;
         }
     }
     private static bool nextLineBreak = false;
+
     public static void ParseJsonObject(this MotdComponent component, JsonProperty property,MotdOption option) {
         var value = property.Value;
         switch (property.Name) {
@@ -44,16 +43,6 @@ public static class MotdComponentParsingExtension {
                 break; 
             case "text": 
                 var text = value.GetString();
-                if (nextLineBreak) 
-                { 
-                    component.LineBreak = true; 
-                    nextLineBreak = false;
-                } 
-                if (text.Contains("§z")) 
-                { 
-                    text = text.Replace("§z", "").Replace("§x",""); 
-                    nextLineBreak = true;
-                } 
                 component.Text = string.IsNullOrEmpty(text) ? " " : text;
                 break;
         }

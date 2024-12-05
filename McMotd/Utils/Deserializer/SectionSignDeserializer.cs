@@ -13,8 +13,8 @@ using McMotd.Extension;
 namespace McMotd.Utils.Deserializer;
 
 public class SectionSignDeserializer : IMotdDeserializer {
-    private readonly string SIGN = "§";
-
+    private const string SIGN = "§";
+    private const string LineBreakSIGN = "§z"; 
     private MotdOption _option;
 
     public SectionSignDeserializer(MotdOption option) {
@@ -22,32 +22,39 @@ public class SectionSignDeserializer : IMotdDeserializer {
     }
     
     //TODO : replace new simple variable name
-    public MotdComponents Deserialize(string rawMotd) {
-        //not bad code..
-        if(_option.Options.Contains(MotdParsingOption.NoLineBreak)) 
-            rawMotd = McRegex.lineBreakPattern.Replace(rawMotd.Replace(Environment.NewLine,string.Empty),string.Empty);
-        else
-            rawMotd = McRegex.lineBreakPattern.Replace(rawMotd.Replace(Environment.NewLine,$"{SIGN}z"),$"{SIGN}z");
-
-        if(rawMotd.StartsWith("\"") && rawMotd.EndsWith("\""))
-            rawMotd = rawMotd[1..^1];
+    public MotdComponents Deserialize(string RawMotd) {
+        if(RawMotd.StartsWith("\"") && RawMotd.EndsWith("\""))
+            RawMotd = RawMotd[1..^1];
         
 
         //전 처리 끝
         MotdComponents motd = new();
 
-        if (!rawMotd.StartsWith(SIGN))
+        if (!RawMotd.StartsWith(SIGN))
             motd.Add(new() {
-                Text = rawMotd.Split(SIGN)[0]
+                Text = RawMotd.Split(SIGN)[0]
             });
         
         
-        var matches = McRegex.pattern.Matches(rawMotd);
-        foreach (Match match in matches) {
+        var matches = McRegex.pattern.Matches(RawMotd);
+        foreach (Match match in matches) { 
             MotdComponent component = new();
             //Full value
-            component.Text = match.Groups[5].Value;
+            var text = match.Groups[5].Value;
+            string afterText = null;
+            
+            if (text.Contains(Environment.NewLine)) {
 
+                var splited_text = text.Split(Environment.NewLine);
+
+                text = splited_text[0];
+                afterText = splited_text[1].Replace(LineBreakSIGN, string.Empty);
+                component.LineBreak = true;
+            }
+            component.Text = text;
+
+            
+            
             //first section sign
             var sectionSign = match.Groups[2].Value;
             component.ParseSectionSign(sectionSign);
@@ -56,6 +63,11 @@ public class SectionSignDeserializer : IMotdDeserializer {
             component.ParseSectionSign(secondSectionSign);
 
             motd.Add(component);
+            
+            if(!string.IsNullOrEmpty(afterText))
+                motd.Add(new MotdComponent() {
+                    Text = afterText
+                });
         }
 
         return motd;

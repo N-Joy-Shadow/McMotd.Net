@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using McMotd.API;
 using McMotd.Enum;
 using McMotd.Extension;
@@ -9,6 +10,8 @@ using McMotd.Utils.Converter;
 namespace McMotd.Utils.Deserializer;
 
 public class MotdJsonDeserializer: IMotdDeserializer {
+    private const string SIGN = "§";
+
     private MotdOption _option;
     public MotdJsonDeserializer(MotdOption option) {
         this._option = option;
@@ -18,13 +21,11 @@ public class MotdJsonDeserializer: IMotdDeserializer {
             Converters = { new MotdJsonConverter(_option) }
         };
 
-        if (_option.Options.Contains(MotdParsingOption.NoLineBreak))
-            RawMotd = RawMotd.Replace(Environment.NewLine, string.Empty);
-        else 
-            RawMotd = RawMotd.Replace(Environment.NewLine, "§z");
+        var nRawMotd = McRegex.lineBreakPattern.Replace(RawMotd,
+            _option.Options.Contains(MotdParsingOption.NoLineBreak) ? string.Empty : "§z");
         
-        
-        var motd =  JsonSerializer.Deserialize<MotdComponents>(RawMotd,options);
-        return motd;
+        var motds =  JsonSerializer.Deserialize<MotdComponents>(nRawMotd,options);
+
+return motds;
     }
 }

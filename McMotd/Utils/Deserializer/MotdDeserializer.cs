@@ -45,8 +45,8 @@ namespace McMotd.Utils.Deserializer
         }
 
         #region private section
-        private bool ContainSectionSign(string Rawmotd) {
-            return Rawmotd.Contains("§");
+        private bool ContainSectionSign(string RawMotd) {
+            return RawMotd.Contains("§");
         }
         private bool IsJson(string RawMotd) {
             RawMotd = RawMotd.Trim();
