@@ -21,7 +21,7 @@ public class MotdJsonDeserializer: IMotdDeserializer {
             Converters = { new MotdJsonConverter(_option) }
         };
 
-        var nRawMotd = McRegex.lineBreakPattern.Replace(RawMotd,
+        var nRawMotd = McRegex.LineBreakPattern.Replace(RawMotd,
             _option.Options.Contains(MotdParsingOption.NoLineBreak) ? string.Empty : "§z");
         
         var motds =  JsonSerializer.Deserialize<MotdComponents>(nRawMotd,options);

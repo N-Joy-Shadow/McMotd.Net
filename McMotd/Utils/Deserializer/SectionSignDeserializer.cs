@@ -36,7 +36,7 @@ public class SectionSignDeserializer : IMotdDeserializer {
             });
         
         
-        var matches = McRegex.pattern.Matches(RawMotd);
+        var matches = McRegex.Pattern.Matches(RawMotd);
         foreach (Match match in matches) { 
             MotdComponent component = new();
             //Full value
