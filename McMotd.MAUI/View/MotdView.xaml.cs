@@ -58,10 +58,7 @@ public partial class MotdView : ContentView {
         }
 
         foreach (var component in Motd.Components) {
-            if (component.LineBreak) {
-                vStack.Children.Add(hStack);
-                hStack = new StackLayout() { Orientation = StackOrientation.Horizontal };
-            }
+
 
             var label = new Label();
             label.FontSize = FontSize ?? 12;
@@ -71,6 +68,11 @@ public partial class MotdView : ContentView {
                 label = this.ResolveTextFormat(label,format);
             }
             hStack.Children.Add(label);
+            
+            if (component.LineBreak) {
+                vStack.Children.Add(hStack);
+                hStack = new StackLayout() { Orientation = StackOrientation.Horizontal };
+            }
         }
         vStack.Children.Add(hStack);
     }

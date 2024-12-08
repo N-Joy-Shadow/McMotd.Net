@@ -26,6 +26,6 @@ public class MotdJsonDeserializer: IMotdDeserializer {
         
         var motds =  JsonSerializer.Deserialize<MotdComponents>(nRawMotd,options);
 
-return motds;
+        return motds;
     }
 }

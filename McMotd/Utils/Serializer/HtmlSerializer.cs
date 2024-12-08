@@ -16,9 +16,10 @@ public class HtmlSerializer: IMotdSerializer<string> {
             sb.Append($" style=\"color:{component.Color};");
             sb.Append(HtmlStyle(component.TextFormatting));
             sb.Append("\">");
-            if (component.LineBreak) sb.Append("<br/>");
             sb.Append(component.Text.Replace(" ", "&nbsp;"));
-            sb.Append("</span>");        
+            sb.Append("</span>");     
+            if (component.LineBreak)
+                sb.Append("<br/>");
         }
         sb.Append("</div>");
 

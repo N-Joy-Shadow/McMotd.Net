@@ -14,7 +14,10 @@ namespace McMotd.Utils.Deserializer;
 
 public class SectionSignDeserializer : IMotdDeserializer {
     private const string SIGN = "§";
-    private const string LineBreakSIGN = "§z"; 
+    private const string LineBreakSIGN = "§z";
+    
+    private static readonly string[] LineBreaks = new[] { "\\r\\n", "\\n", "\\r" };
+
     private MotdOption _option;
 
     public SectionSignDeserializer(MotdOption option) {
@@ -26,6 +29,7 @@ public class SectionSignDeserializer : IMotdDeserializer {
         if(RawMotd.StartsWith("\"") && RawMotd.EndsWith("\""))
             RawMotd = RawMotd[1..^1];
         
+
 
         //전 처리 끝
         MotdComponents motd = new();
@@ -43,13 +47,13 @@ public class SectionSignDeserializer : IMotdDeserializer {
             var text = match.Groups[5].Value;
             string afterText = null;
             
-            if (text.Contains(Environment.NewLine)) {
-
-                var splited_text = text.Split(Environment.NewLine);
-
-                text = splited_text[0];
-                afterText = splited_text[1].Replace(LineBreakSIGN, string.Empty);
-                component.LineBreak = true;
+            //이부분 나중에 보완
+            if (LineBreaks.Any(text.Contains)) { 
+                var splitedText = text.Split(LineBreaks, StringSplitOptions.None);
+                text = splitedText.FirstOrDefault() ?? string.Empty; // 첫 번째 요소 또는 빈 문자열
+                afterText = (splitedText.Length > 1 ? splitedText[1] : string.Empty)
+                    .Replace(LineBreakSIGN, string.Empty);
+                component.LineBreak = !_option.Options.Contains(MotdParsingOption.NoLineBreak);
             }
             component.Text = text;
 

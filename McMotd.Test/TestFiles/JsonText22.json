@@ -1,0 +1,46 @@
+{
+  "extra": [
+    {
+      "bold": true,
+      "color": "red",
+      "text": "    OPBlocks "
+    },
+    {
+      "bold": true,
+      "color": "white",
+      "text": "» "
+    },
+    {
+      "color": "aqua",
+      "text": "Skyblock "
+    },
+    {
+      "color": "white",
+      "text": "| "
+    },
+    {
+      "color": "green",
+      "text": "Survival "
+    },
+    {
+      "color": "white",
+      "text": "| "
+    },
+    {
+      "color": "gold",
+      "text": "Prison "
+    },
+    {
+      "color": "white",
+      "extra": [
+        {
+          "bold": true,
+          "color": "aqua",
+          "text": "SKYBLOCK SEASON 18 LAUNCHED!"
+        }
+      ],
+      "text": ""
+    }
+  ],
+  "text": ""
+}
