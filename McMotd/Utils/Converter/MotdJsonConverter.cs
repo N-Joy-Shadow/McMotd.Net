@@ -36,34 +36,35 @@ public class MotdJsonConverter : JsonConverter<MotdComponents> {
         }
         return motd;
     }
-
-    private int ParsingExtra(JsonElement element) {
-        int i = 0; //좀더 어썸한 방법으로
+    private Queue<JsonElement> extraQueue = new Queue<JsonElement>();
+    private void ParsingExtra(JsonElement element) {
         
         foreach (var obj in element.EnumerateArray()) {
             var component = new MotdComponent();
             if (obj.ValueKind == JsonValueKind.Object) {
                 foreach (var property in obj.EnumerateObject()) {
                     //공백일 때 라인브레이크 추가 해야함
-                    if (property.NameEquals("extra")) {
-                        i += ParsingExtra(property.Value);
-                    }
-                    else {
+                    if (property.NameEquals("extra")) 
+                        extraQueue.Enqueue(property.Value);
+                    else 
                         component.ParseJsonObject(property, _option);
-                    }
                 }
             }
             else if (obj.ValueKind == JsonValueKind.String) {
                 var text = obj.GetString(); //"text": ""의 값을 일단 가져옴 <- 이떄 라인 브레이크 해야함 ㅇㅇ 근데 막 하면 안됨
+                if(text is not null)
+                    if (text == "")
+                        component.LineBreak = true;
             }
 
             if (!string.IsNullOrEmpty(component.Text)) {
                 motd.Add(component);
-                i++;
+            }
+            if (extraQueue.TryDequeue(out var extra)) {
+                ParsingExtra(extra);
             }
         }
 
-        return i;
     }
 
     public override void Write(Utf8JsonWriter writer, MotdComponents motd, JsonSerializerOptions options) {

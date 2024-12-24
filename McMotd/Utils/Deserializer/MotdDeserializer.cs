@@ -14,34 +14,17 @@ using McMotd.Model;
 
 namespace McMotd.Utils.Deserializer
 {
-    public class MotdDeserializer: IMotdDeserializer
-    {
-        
-        #if DEBUG
-        private readonly SectionSignDeserializer sectionSignDeserializer;
-        private readonly MotdJsonDeserializer jsonDeserializer;
-        private readonly PlainTextDeserializer textDeserializer;
-        #else
-        private readonly IMotdDeserializer sectionSignDeserializer;
-        private readonly IMotdDeserializer jsonDeserializer;
-        private readonly IMotdDeserializer textDeserializer;
-        #endif
-        public MotdDeserializer(MotdOption option)
-        {
-            this.sectionSignDeserializer = new SectionSignDeserializer(option);
-            this.jsonDeserializer = new MotdJsonDeserializer(option);
-            this.textDeserializer = new PlainTextDeserializer(option);
-            
+    public class MotdDeserializer: IMotdDeserializer {
+        private readonly MotdOption option;
+        private IMotdDeserializer _deserializer;
+
+        public MotdDeserializer(MotdOption option) {
+            this.option = option; 
         }
 
         public MotdComponents Deserialize(string RawMotd) {
-            if (this.IsJson(RawMotd)) 
-                return jsonDeserializer.Deserialize(RawMotd);
-            else 
-                if (this.ContainSectionSign(RawMotd)) 
-                    return sectionSignDeserializer.Deserialize(RawMotd);
-                else 
-                    return textDeserializer.Deserialize(RawMotd);
+            SetDeserializer(RawMotd);            
+            return this._deserializer.Deserialize(RawMotd);
         }
 
         #region private section
@@ -52,6 +35,14 @@ namespace McMotd.Utils.Deserializer
             RawMotd = RawMotd.Trim();
             return (RawMotd.StartsWith("{") && RawMotd.EndsWith("}")) || 
                    (RawMotd.StartsWith("[") && RawMotd.EndsWith("]"));
+        }
+        private void SetDeserializer(string RawMotd) {
+            if (this.IsJson(RawMotd))
+                this._deserializer = new MotdJsonDeserializer(option);
+            else if (this.ContainSectionSign(RawMotd))
+                this._deserializer = new SectionSignDeserializer(option);
+            else
+                this._deserializer = new PlainTextDeserializer(option);
         }
         #endregion
     }

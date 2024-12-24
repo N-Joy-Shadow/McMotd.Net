@@ -26,7 +26,6 @@ public static class MotdComponentParsingExtension {
                 break;
         }
     }
-    private static bool nextLineBreak = false;
 
     public static void ParseJsonObject(this MotdComponent component, JsonProperty property,MotdOption option) {
         var value = property.Value;
@@ -43,7 +42,7 @@ public static class MotdComponentParsingExtension {
                 break; 
             case "text": 
                 var text = value.GetString();
-                component.Text = string.IsNullOrEmpty(text) ? " " : text;
+                component.Text = string.IsNullOrEmpty(text) ? "" : text;
                 break;
         }
     }
